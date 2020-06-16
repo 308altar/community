@@ -8,7 +8,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class Question {
+public class Question { //数据表QUESTION
     private Integer id;
     private String title;
     private String description;

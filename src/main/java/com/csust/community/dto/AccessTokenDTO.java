@@ -8,7 +8,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class AccessTokenDTO {
+public class AccessTokenDTO {  //回调github用户信息地址所需参数
     private String client_id;
     private String client_secret;
     private String code;

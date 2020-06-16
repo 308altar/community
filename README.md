@@ -5,7 +5,11 @@
 * Bootstrap
 * H2数据库
 * Lombok
-* OkHttp3
+* OKHTTP3
+* Thymeleaf
+* Maven
+* Git
+* JDBC
 
 ## 参考资料地址
 [Maven仓库](https://mvnrepository.com/)
@@ -18,7 +22,7 @@
 
 [H2数据库](https://mvnrepository.com/artifact/com.h2database/h2)
 
-[OkHttp3](https://mvnrepository.com/artifact/com.h2database/h2)
+[OKHTTP3](https://mvnrepository.com/artifact/com.h2database/h2)
 
 [MD文档使用](https://www.cnblogs.com/liugang-vip/p/6337580.html)
 
@@ -29,3 +33,5 @@
 [如何使用OAuth Apps](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
 
 [栅格系统](https://v3.bootcss.com/css/#grid)
+
+[Thymeleaf](https://www.thymeleaf.org/)
