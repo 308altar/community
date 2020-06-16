@@ -48,7 +48,7 @@ public class IndexController {
         }
 
         List<QuestionDTO> questionList=questionService.list();//查询带有用户信息的问题列表返回前端展示
-        model.addAttribute("question",questionList);
+        model.addAttribute("questions",questionList);
         return "index";
     }
 }
