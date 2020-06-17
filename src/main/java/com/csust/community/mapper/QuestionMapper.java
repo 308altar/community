@@ -3,6 +3,7 @@ package com.csust.community.mapper;
 import com.csust.community.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,9 @@ public interface QuestionMapper {  //Mybatis Mapper适配器，执行SQL数据�
     @Insert("insert into question (title,description,gmt_create,gmt_modified,creator,tag) values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
     void insert(Question question);
 
-    @Select("select * from question")
-    List<Question> list();
+    @Select("select * from question limit #{offset},#{size}")
+    List<Question> list(@Param(value = "offset") Integer offset, @Param(value = "size")Integer size);
+
+    @Select("select count(1) from question")
+    Integer count();
 }
