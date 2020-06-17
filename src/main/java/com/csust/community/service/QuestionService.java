@@ -35,6 +35,19 @@ public class QuestionService {
      */
     public PageinationDTO list(Integer page, Integer size) {
 
+        Integer totalPage;
+        Integer totalCount = questionMapper.count(); //数据库中问题总数
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+        if (page<1){ //判断page是否合法
+            page=1;
+        }
+        if(page>totalPage){
+            page=totalPage;
+        }
         Integer offset=size*(page - 1);
         List<Question> questions = questionMapper.list(offset,size);//返回数据库中的所有问题
         List<QuestionDTO> questionDTOList=new ArrayList<>();
@@ -49,8 +62,7 @@ public class QuestionService {
         }
 
         pageinationDTO.setQuestions(questionDTOList);
-        Integer totalCount = questionMapper.count(); //数据库中问题总数
-        pageinationDTO.setPageination(totalCount,page,size);
+        pageinationDTO.setPageination(totalPage,page);
 
         return pageinationDTO;
     }

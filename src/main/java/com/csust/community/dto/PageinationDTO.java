@@ -19,14 +19,11 @@ public class PageinationDTO {//index页面所承载的元素
     private boolean showEndPage; //是否显示最后一页 '>>'
     private List<Integer> pages = new ArrayList<>(); //当前显示的页码数组
     private Integer currentPage; // 当前页面
+    private Integer totalPage;
 
-    public void setPageination(Integer totalCount, Integer page, Integer size) {
-        Integer totalPage;
-        if (totalCount % size == 0) {
-            totalPage = totalCount / size;
-        } else {
-            totalPage = totalCount / size + 1;
-        }
+    public void setPageination(Integer totalPage, Integer page) {
+        this.currentPage=page;
+        this.totalPage=totalPage;
 
         pages.add(page);
         for (int i = 1; i <= 3; i++) {
