@@ -11,6 +11,7 @@
 * Git
 * JDBC
 * PageHelper
+* JQuery
 
 ## 参考资料地址
 [Maven仓库](https://mvnrepository.com/)
@@ -40,3 +41,5 @@
 [热部署](https://www.jianshu.com/p/f658fed35786)
 
 [Mybatis分页插件PageHelper](https://pagehelper.github.io/docs/howtouse/)
+
+[JQuery](https://jquery.com/)
