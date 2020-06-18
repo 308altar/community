@@ -13,6 +13,7 @@ public class User {  //数据库表USER
     private String accountId;
     private String name;
     private String token;
+    private String bio;
     private Long gmtCreate;
     private Long gmtModified;
     private String avatarUrl;

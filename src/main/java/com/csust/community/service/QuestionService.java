@@ -69,6 +69,7 @@ public class QuestionService {
 
     /**
      * 返回包含当前用户所发布的问题列表的PageinationDTO
+     *
      * @param userId
      * @param page
      * @param size
@@ -84,6 +85,9 @@ public class QuestionService {
         }
         if (page < 1) { //判断page是否合法
             page = 1;
+        }
+        if (totalPage == 0) {
+            totalPage = 1;
         }
         if (page > totalPage) {
             page = totalPage;
@@ -108,11 +112,23 @@ public class QuestionService {
     }
 
     public QuestionDTO getById(Integer id) {
-        Question question=questionMapper.getById(id);
+        Question question = questionMapper.getById(id);
         QuestionDTO questionDTO = new QuestionDTO();
         User user = userMapper.findById(question.getCreator());
         BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(user);
         return questionDTO;
+    }
+
+    public void createOrUpdate(Question question) {
+        if (question.getId()==null) {
+            //插入新question入库
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.insert(question);
+        }else {
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.upDate(question);
+        }
     }
 }

@@ -2,10 +2,7 @@ package com.csust.community.mapper;
 
 import com.csust.community.dto.QuestionDTO;
 import com.csust.community.model.Question;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -35,4 +32,7 @@ public interface QuestionMapper {  //Mybatis Mapper适配器，执行SQL数据�
 
     @Select("select * from question where id=#{id}")
     Question getById(@Param(value = "id") Integer id);
+
+    @Update("update question set title=#{title},description=#{description},gmt_modified=#{gmtModified},tag=#{tag} where id=#{id}")
+    void upDate(Question question);
 }
