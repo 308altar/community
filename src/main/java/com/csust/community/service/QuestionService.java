@@ -4,6 +4,7 @@ import com.csust.community.dto.PageinationDTO;
 import com.csust.community.dto.QuestionDTO;
 import com.csust.community.exception.CustomizeErrorCode;
 import com.csust.community.exception.CustomizeException;
+import com.csust.community.mapper.QuestionExtMapper;
 import com.csust.community.mapper.QuestionMapper;
 import com.csust.community.mapper.UserMapper;
 import com.csust.community.model.Question;
@@ -29,6 +30,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     /**
      * PageinationDTO 包含QuestionDTO属性，QuestionDTO带有user属性，user里有用户头像地址avatarUrl，用于获取用户头像地址
@@ -159,5 +163,20 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Integer id) {
+  /*      Question question=questionMapper.selectByPrimaryKey(id); //先拿到当前数据库中该问题的相关数据 view_count
+        //更新数据库中该问题的view_count
+        Question updateQuestion = new Question();
+        updateQuestion.setViewCount(question.getViewCount()+1); //访问一下就+1
+        QuestionExample example = new QuestionExample();
+        example.createCriteria()
+                .andIdEqualTo(id);
+        questionMapper.updateByExampleSelective(updateQuestion, example);*/
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }

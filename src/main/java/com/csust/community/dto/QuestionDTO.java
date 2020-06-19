@@ -17,8 +17,8 @@ public class QuestionDTO { //一个bean，关联了用户和该用户发布的�
     private Long gmtCreate;
     private Long gmtModified;
     private Integer creator;
-    private Long commentCount;
-    private Long viewCount;
-    private Long likeCount;
+    private Integer commentCount;
+    private Integer viewCount;
+    private Integer likeCount;
     private User user;
 }
