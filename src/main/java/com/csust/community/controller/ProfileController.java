@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Version 1.0
  */
 @Controller
-public class ProfileController {
+public class ProfileController { //管理我的问题管理页面
     @Autowired
     private QuestionService questionService;
 

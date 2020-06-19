@@ -2,6 +2,8 @@ package com.csust.community.service;
 
 import com.csust.community.dto.PageinationDTO;
 import com.csust.community.dto.QuestionDTO;
+import com.csust.community.exception.CustomizeErrorCode;
+import com.csust.community.exception.CustomizeException;
 import com.csust.community.mapper.QuestionMapper;
 import com.csust.community.mapper.UserMapper;
 import com.csust.community.model.Question;
@@ -125,6 +127,9 @@ public class QuestionService {
     public QuestionDTO getById(Integer id) {
         //Question question = questionMapper.getById(id);
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question==null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         BeanUtils.copyProperties(question, questionDTO);
@@ -149,7 +154,10 @@ public class QuestionService {
             QuestionExample example = new QuestionExample();
             example.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, example);//更新变化数值
+            int updateed=questionMapper.updateByExampleSelective(updateQuestion, example);//更新数据库中表的变化数值,并返回是否更新成功 1 失败 0
+            if(updateed!=1){ //没有更新成功
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }

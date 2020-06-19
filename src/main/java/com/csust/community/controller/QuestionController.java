@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @Version 1.0
  */
 @Controller
-public class QuestionController {
+public class QuestionController {  //管理查看问题页面
 
     @Autowired
     private QuestionService questionService;

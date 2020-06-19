@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Version 1.0
  */
 @Controller
-public class PublishController {
+public class PublishController {//管理问题发布页面
 
     @Autowired
     private QuestionService questionService;

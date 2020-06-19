@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Version 1.0
  */
 @Controller
-public class IndexController {
+public class IndexController { //首页控制
 
 
     @Autowired

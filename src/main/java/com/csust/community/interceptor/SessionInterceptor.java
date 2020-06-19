@@ -19,7 +19,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Service
-public class SessionInterceptor implements HandlerInterceptor {
+public class SessionInterceptor implements HandlerInterceptor { //对所有请求进行拦截，判断该页面下用户是否登录
     @Autowired
     private UserMapper userMapper;
 

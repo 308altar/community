@@ -14,7 +14,7 @@ import java.io.IOException;
  * @Version 1.0
  */
 @Component
-public class GithubProvider {
+public class GithubProvider { //根据OAuth app返回github用户信息
     public String getAccessToken(AccessTokenDTO accessTokenDTO){
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();

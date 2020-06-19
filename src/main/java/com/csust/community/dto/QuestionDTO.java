@@ -9,7 +9,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class QuestionDTO {
+public class QuestionDTO { //一个bean，关联了用户和该用户发布的问题
     private Integer id;
     private String title;
     private String description;
