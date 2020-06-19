@@ -28,23 +28,23 @@ public class ProfileController { //管理我的问题管理页面
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
                           HttpServletRequest request,
-                          @RequestParam(name="page",defaultValue = "1") Integer page,
-                          @RequestParam(name="size",defaultValue = "2") Integer size,
+                          @RequestParam(name = "page", defaultValue = "1") Integer page,
+                          @RequestParam(name = "size", defaultValue = "2") Integer size,
                           Model model) {
-        User user = (User)request.getSession().getAttribute("user");
-        if(user==null){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
             return "redirect:/";
         }
         if ("questions".contains(action)) {
-            model.addAttribute("section","questions");
-            model.addAttribute("sectionName","我的提问");
-        }else if("replies".contains(action)){
-            model.addAttribute("section","replies");
-            model.addAttribute("sectionName","最新回复");
+            model.addAttribute("section", "questions");
+            model.addAttribute("sectionName", "我的提问");
+        } else if ("replies".contains(action)) {
+            model.addAttribute("section", "replies");
+            model.addAttribute("sectionName", "最新回复");
         }
 
-        PageinationDTO pageinationDTO=questionService.list(user.getId(),page,size);
-        model.addAttribute("pageination",pageinationDTO);
+        PageinationDTO pageinationDTO = questionService.list(user.getId(), page, size);
+        model.addAttribute("pageination", pageinationDTO);
         return "profile";
     }
 }

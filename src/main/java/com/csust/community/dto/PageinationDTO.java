@@ -22,8 +22,8 @@ public class PageinationDTO {//index页面所承载的元素
     private Integer totalPage;
 
     public void setPageination(Integer totalPage, Integer page) {
-        this.currentPage=page;
-        this.totalPage=totalPage;
+        this.currentPage = page;
+        this.totalPage = totalPage;
 
         pages.add(page);
         for (int i = 1; i <= 3; i++) {

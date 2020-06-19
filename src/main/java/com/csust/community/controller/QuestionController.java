@@ -24,8 +24,8 @@ public class QuestionController {  //管理查看问题页面
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Integer id,
                            Model model) {
-        QuestionDTO questionDTO=questionService.getById(id);
-        model.addAttribute("question",questionDTO);
+        QuestionDTO questionDTO = questionService.getById(id);
+        model.addAttribute("question", questionDTO);
         return "question";
     }
 }

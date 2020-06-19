@@ -27,11 +27,11 @@ public class SessionInterceptor implements HandlerInterceptor { //对所有请�
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //所有的请求都拦截，获得user放入session中
         Cookie[] cookies = request.getCookies();
-        if (cookies!=null && cookies.length!=0) {
+        if (cookies != null && cookies.length != 0) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
-                    UserExample userExample=new UserExample(); //创建一个通用的user查询对象
+                    UserExample userExample = new UserExample(); //创建一个通用的user查询对象
                     userExample.createCriteria().andTokenEqualTo(token); //拼接SQL语句
                     List<User> users = userMapper.selectByExample(userExample);
                     if (users.size() != 0) {

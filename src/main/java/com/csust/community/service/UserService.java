@@ -23,11 +23,11 @@ public class UserService {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());//第一个是创建表达式，第二个是拼接查询参数
         List<User> users = userMapper.selectByExample(userExample);
-        if (users.size()==0) { //数据库中没有该用户，第一次登录
+        if (users.size() == 0) { //数据库中没有该用户，第一次登录
             user.setGmtCreate(System.currentTimeMillis()); //创建时间
             user.setGmtModified(user.getGmtCreate()); //修改时间
             userMapper.insert(user);
-        }else{//更新字段 name token gmt_modified bio avatar_url
+        } else {//更新字段 name token gmt_modified bio avatar_url
             User dbuser = users.get(0);
             User updateUser = new User();
             updateUser.setGmtModified(System.currentTimeMillis());

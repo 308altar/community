@@ -28,59 +28,61 @@ public class PublishController {//管理问题发布页面
 
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable(name = "id") Integer id,
-                       Model model){
+                       Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
         //回显信息
-        model.addAttribute("title",questionDTO.getTitle());
-        model.addAttribute("description",questionDTO.getDescription());
-        model.addAttribute("tag",questionDTO.getTag());
-        model.addAttribute("id",questionDTO.getId()); //标识是已经存在的问题
+        model.addAttribute("title", questionDTO.getTitle());
+        model.addAttribute("description", questionDTO.getDescription());
+        model.addAttribute("tag", questionDTO.getTag());
+        model.addAttribute("id", questionDTO.getId()); //标识是已经存在的问题
         return "publish";
     }
 
     /**
      * Get请求选择渲染页面
+     *
      * @return
      */
     @GetMapping("/publish")
-    public String publish(){
+    public String publish() {
         return "publish";
     }
 
     /**
      * Post请求提交表单
+     *
      * @return
      */
     @PostMapping("/publish")
     public String postPublish(
-            @RequestParam(value ="title",required = false) String title,
-            @RequestParam(value = "description",required = false) String description,
-            @RequestParam(value = "tag",required = false) String tag,
-            @RequestParam(value = "id",required = false) Integer id,
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "id", required = false) Integer id,
             HttpServletRequest request,
-            Model model){
+            Model model) {
         //回显信息
-        model.addAttribute("title",title);
-        model.addAttribute("description",description);
-        model.addAttribute("tag",tag);
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tag", tag);
 
-        if (title==null||title=="") {
-            model.addAttribute("error","标题不能为空");
+        if (title == null || title == "") {
+            model.addAttribute("error", "标题不能为空");
             return "publish";
         }
-        if (description==null||description=="") {
-            model.addAttribute("error","问题补充不能为空");
+        if (description == null || description == "") {
+            model.addAttribute("error", "问题补充不能为空");
             return "publish";
         }
-        if (tag ==null||tag=="") {
-            model.addAttribute("error","标签不能为空");
+        if (tag == null || tag == "") {
+            model.addAttribute("error", "标签不能为空");
             return "publish";
         }
 
         //验证用户是否登录
-        User user = (User)request.getSession().getAttribute("user");
-        if (user==null) {
-            model.addAttribute("error","用户未登录");
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            model.addAttribute("error", "用户未登录");
             return "publish";
         }
 

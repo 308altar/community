@@ -102,7 +102,7 @@ public class QuestionService {
         }
         Integer offset = size * (page - 1);
         //List<Question> questions = questionMapper.listByUserId(userId, offset, size);//返回数据库中该用户的所有问题
-        QuestionExample example= new QuestionExample();
+        QuestionExample example = new QuestionExample();
         example.createCriteria()
                 .andCreatorEqualTo(userId);
         List<Question> questions = questionMapper
@@ -127,7 +127,7 @@ public class QuestionService {
     public QuestionDTO getById(Integer id) {
         //Question question = questionMapper.getById(id);
         Question question = questionMapper.selectByPrimaryKey(id);
-        if (question==null) {
+        if (question == null) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
         QuestionDTO questionDTO = new QuestionDTO();
@@ -154,8 +154,8 @@ public class QuestionService {
             QuestionExample example = new QuestionExample();
             example.createCriteria()
                     .andIdEqualTo(question.getId());
-            int updateed=questionMapper.updateByExampleSelective(updateQuestion, example);//更新数据库中表的变化数值,并返回是否更新成功 1 失败 0
-            if(updateed!=1){ //没有更新成功
+            int updateed = questionMapper.updateByExampleSelective(updateQuestion, example);//更新数据库中表的变化数值,并返回是否更新成功 1 失败 0
+            if (updateed != 1) { //没有更新成功
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }

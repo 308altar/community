@@ -5,8 +5,8 @@ package com.csust.community.exception;
  * @Date 2020/6/19 14:59
  * @Version 1.0
  */
-public enum CustomizeErrorCode implements ICustomizeErrorCode{
-    QUESTION_NOT_FOUND("该问题问题不存在或已删除。");
+public enum CustomizeErrorCode implements ICustomizeErrorCode {
+    QUESTION_NOT_FOUND("该问题不存在或已删除。");
     private String message;
 
     @Override
