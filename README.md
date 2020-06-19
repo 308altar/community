@@ -47,3 +47,7 @@
 [Spring官方文档](https://spring.io/projects/spring-framework)
 
 [Spring MVC](https://spring.io/)
+
+[Mybatis GeneratorXML](https://mybatis.org/generator/configreference/xmlconfig.html)
+
+[Mybatis 逆向工程](https://blog.csdn.net/qq_39056805/article/details/80585941)

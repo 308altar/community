@@ -54,7 +54,7 @@ public class QuestionService {
 
         PageinationDTO pageinationDTO = new PageinationDTO();  //存放当前页码的问题列表和分页的状态
         for (Question question : questions) {  //循环找出该问题列表所对应的user
-            User user = userMapper.findById(question.getCreator());//通过问题存放的creator关联user的id查询
+            User user = userMapper.selectByPrimaryKey(question.getCreator());//通过问题存放的creator关联user的id查询
             QuestionDTO questionDTO = new QuestionDTO();  //存放具有user属性的Question
             BeanUtils.copyProperties(question, questionDTO);//快速拷贝到数据传送类DTO中
             questionDTO.setUser(user);
@@ -98,7 +98,7 @@ public class QuestionService {
 
         PageinationDTO pageinationDTO = new PageinationDTO();
         for (Question question : questions) {
-            User user = userMapper.findById(question.getCreator());//通过问题存放的creator关联user的id查询
+            User user = userMapper.selectByPrimaryKey(question.getCreator());//通过问题存放的creator关联user的id查询
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);//快速拷贝到数据传送类DTO中
             questionDTO.setUser(user);
@@ -114,7 +114,7 @@ public class QuestionService {
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.getById(id);
         QuestionDTO questionDTO = new QuestionDTO();
-        User user = userMapper.findById(question.getCreator());
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
         BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(user);
         return questionDTO;
