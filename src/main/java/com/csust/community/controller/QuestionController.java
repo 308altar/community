@@ -22,7 +22,7 @@ public class QuestionController {  //管理查看问题页面
 
     //问题在数据库中的编号id
     @GetMapping("/question/{id}")
-    public String question(@PathVariable(name = "id") Integer id,
+    public String question(@PathVariable(name = "id") Long id,
                            Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
 

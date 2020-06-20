@@ -84,7 +84,7 @@ public class QuestionService {
      * @param size
      * @return
      */
-    public PageinationDTO list(Integer userId, Integer page, Integer size) {
+    public PageinationDTO list(Long userId, Integer page, Integer size) {
         Integer totalPage;
         //Integer totalCount = questionMapper.countByUserId(userId);
         QuestionExample questionExample = new QuestionExample();
@@ -128,7 +128,7 @@ public class QuestionService {
         return pageinationDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         //Question question = questionMapper.getById(id);
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
@@ -146,6 +146,9 @@ public class QuestionService {
             //插入新question入库
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
             questionMapper.insert(question);
         } else {
             question.setGmtModified(System.currentTimeMillis());
@@ -165,7 +168,7 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
   /*      Question question=questionMapper.selectByPrimaryKey(id); //先拿到当前数据库中该问题的相关数据 view_count
         //更新数据库中该问题的view_count
         Question updateQuestion = new Question();

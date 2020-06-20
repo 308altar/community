@@ -1,6 +1,7 @@
 package com.csust.community.dto;
 
 import com.csust.community.exception.CustomizeErrorCode;
+import com.csust.community.exception.CustomizeException;
 import lombok.Data;
 
 /**
@@ -29,5 +30,9 @@ public class ResultDTO { //返回请求结果标识
         resultDTO.setCode(200);
         resultDTO.setMessage("请求成功");
         return resultDTO;
+    }
+
+    public static ResultDTO errorOf(CustomizeException e) {
+        return errorOf(e.getCode(),e.getMessage());
     }
 }
