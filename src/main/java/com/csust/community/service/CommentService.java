@@ -10,6 +10,7 @@ import com.csust.community.model.Comment;
 import com.csust.community.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author XieHaiBin
@@ -27,6 +28,7 @@ public class CommentService {
     @Autowired
     private QuestionExtMapper questionExtMapper;
 
+    @Transactional
     public void insert(Comment comment) {
         if (comment.getParentId() == null || comment.getParentId() == 0) { //判断评论是否存在
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);

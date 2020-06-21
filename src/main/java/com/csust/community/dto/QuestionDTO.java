@@ -10,13 +10,13 @@ import lombok.Data;
  */
 @Data
 public class QuestionDTO { //一个bean，关联了用户和该用户发布的问题
-    private Integer id;
+    private Long id;
     private String title;
     private String description;
     private String tag;
     private Long gmtCreate;
     private Long gmtModified;
-    private Integer creator;
+    private Long creator;
     private Integer commentCount;
     private Integer viewCount;
     private Integer likeCount;

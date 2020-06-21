@@ -1,4 +1,7 @@
 ## 项目更新日志
+* 2020-6-21
+> 编写完善问题评论回复页面，通过ajax实现异步刷新评论。
+***
 * 2020-6-20
 > 初步实现问题回复api，编写问题回复的异常处理。
 ***
@@ -74,3 +77,5 @@
 [Mybatis 逆向工程](https://blog.csdn.net/qq_39056805/article/details/80585941)
 
 [JSON 格式转化器](http://jsoneditoronline.org/)
+
+[JQuery.POST](https://api.jquery.com/jQuery.post/)
