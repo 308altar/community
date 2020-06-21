@@ -18,6 +18,7 @@ function post() {
                     var isAccepted=confirm(response.message);
                     if (isAccepted){
                         window.open("https://github.com/login/oauth/authorize?client_id=46e2a6e565040b91dea1&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
+                        window.localStorage.setItem("closable",true);
                     }
                 }else{
                     alert(response.message);
