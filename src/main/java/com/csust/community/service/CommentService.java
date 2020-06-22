@@ -1,6 +1,5 @@
 package com.csust.community.service;
 
-import com.csust.community.dto.CommentCreateDTO;
 import com.csust.community.dto.CommentDTO;
 import com.csust.community.enums.CommentTypeEnum;
 import com.csust.community.exception.CustomizeErrorCode;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -71,10 +69,10 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> listByQuestionId(Long id) {
+    public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria()
-                .andParentIdEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+                .andParentIdEqualTo(id).andTypeEqualTo(type.getType());
         commentExample.setOrderByClause("gmt_create desc");//获得的评论按创建时间的倒序排序
         List<Comment> comments = commentMapper.selectByExample(commentExample);//拿到该问题下的所有评论
         if (comments.size()==0) {

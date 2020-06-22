@@ -1,7 +1,9 @@
 package com.csust.community.controller;
 
 import com.csust.community.dto.CommentCreateDTO;
+import com.csust.community.dto.CommentDTO;
 import com.csust.community.dto.ResultDTO;
+import com.csust.community.enums.CommentTypeEnum;
 import com.csust.community.exception.CustomizeErrorCode;
 import com.csust.community.model.Comment;
 import com.csust.community.model.User;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Author XieHaiBin
@@ -45,5 +48,12 @@ public class CommentController {
         comment.setLikeCount(0L);
         commentService.insert(comment);
         return ResultDTO.okOf();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
+    public ResultDTO<List> comments(@PathVariable(name = "id") Long id){
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        return ResultDTO.okOf(commentDTOS);
     }
 }
