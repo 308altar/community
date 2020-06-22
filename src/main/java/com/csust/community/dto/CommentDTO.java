@@ -1,15 +1,22 @@
 package com.csust.community.dto;
 
+import com.csust.community.model.User;
 import lombok.Data;
 
 /**
  * @Author XieHaiBin
- * @Date 2020/6/20 11:31
+ * @Date 2020/6/22 11:19
  * @Version 1.0
  */
 @Data
-public class CommentDTO {  //评论前端返回的数据模型
+public class CommentDTO {
+    private Long id;
     private Long parentId;
-    private String content;
     private Integer type;
+    private Long commentator;
+    private Long gmtCreate;
+    private Long gmtModified;
+    private Long likeCount;
+    private String content;
+    private User user;
 }

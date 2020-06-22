@@ -1,9 +1,8 @@
 package com.csust.community.controller;
 
-import com.csust.community.dto.CommentDTO;
+import com.csust.community.dto.CommentCreateDTO;
 import com.csust.community.dto.ResultDTO;
 import com.csust.community.exception.CustomizeErrorCode;
-import com.csust.community.mapper.CommentMapper;
 import com.csust.community.model.Comment;
 import com.csust.community.model.User;
 import com.csust.community.service.CommentService;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -26,7 +24,7 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
-    public Object post(@RequestBody CommentDTO commentDTO,
+    public Object post(@RequestBody CommentCreateDTO commentDTO,
                        HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
