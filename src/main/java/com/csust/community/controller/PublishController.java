@@ -6,6 +6,7 @@ import com.csust.community.mapper.QuestionMapper;
 import com.csust.community.model.Question;
 import com.csust.community.model.User;
 import com.csust.community.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,6 +80,12 @@ public class PublishController {//管理问题发布页面
         }
         if (tag == null || tag == "") {
             model.addAttribute("error", "标签不能为空");
+            return "publish";
+        }
+        //校验标签格式
+        String invalid = TagCache.filterInvalid(tag);
+        if (StringUtils.isNotBlank(invalid)) {
+            model.addAttribute("error", "输入非法标签:" + invalid);
             return "publish";
         }
 
