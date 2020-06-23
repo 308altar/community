@@ -1,5 +1,6 @@
 package com.csust.community.controller;
 
+import com.csust.community.cache.TagCache;
 import com.csust.community.dto.QuestionDTO;
 import com.csust.community.mapper.QuestionMapper;
 import com.csust.community.model.Question;
@@ -35,6 +36,7 @@ public class PublishController {//管理问题发布页面
         model.addAttribute("description", questionDTO.getDescription());
         model.addAttribute("tag", questionDTO.getTag());
         model.addAttribute("id", questionDTO.getId()); //标识是已经存在的问题
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
@@ -44,7 +46,8 @@ public class PublishController {//管理问题发布页面
      * @return
      */
     @GetMapping("/publish")
-    public String publish() {
+    public String publish(Model model) {
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
