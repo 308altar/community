@@ -20,12 +20,13 @@ public class GithubProvider { //根据OAuth app返回github用户信息
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));
         Request request = new Request.Builder()
-                .url("https://github.com/login/oauth/access_token?client_id=46e2a6e565040b91dea1&client_secret=ff6b1812611a2db98da1b66c7f17103418a8c80c&code=" + accessTokenDTO.getCode() + "&redirect_uri=http://localhost:8080/callback&state=1")
+                .url("https://github.com/login/oauth/access_token")
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
             String token = string.split("&")[0].split("=")[1];
+            response.close();
             return token;
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,6 +43,7 @@ public class GithubProvider { //根据OAuth app返回github用户信息
             Response response = client.newCall(request).execute();
             String string = response.body().string();
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
+            response.close();
             return githubUser;
         } catch (IOException e) {
         }
