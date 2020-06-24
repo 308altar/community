@@ -3,6 +3,7 @@ package com.csust.community.interceptor;
 import com.csust.community.mapper.UserMapper;
 import com.csust.community.model.User;
 import com.csust.community.model.UserExample;
+import com.csust.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -22,6 +24,9 @@ import java.util.List;
 public class SessionInterceptor implements HandlerInterceptor { //对所有请求进行拦截，判断该页面下用户是否登录
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -35,12 +40,17 @@ public class SessionInterceptor implements HandlerInterceptor { //对所有请�
                     userExample.createCriteria().andTokenEqualTo(token); //拼接SQL语句
                     List<User> users = userMapper.selectByExample(userExample);
                     if (users.size() != 0) {
-                        request.getSession().setAttribute("user", users.get(0));
+                        HttpSession session = request.getSession();
+                        Long unreadCount=notificationService.unreadCount(users.get(0).getId());
+                        session.setAttribute("user", users.get(0));
+                        session.setAttribute("unreadCount", unreadCount);
                     }
                     break;
                 }
             }
         }
+        //添加未读数
+
         return true;
     }
 

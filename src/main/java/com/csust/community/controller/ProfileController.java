@@ -42,12 +42,11 @@ public class ProfileController { //管理我的问题管理页面
             PageinationDTO pageinationDTO = questionService.list(user.getId(), page, size);
             model.addAttribute("pageination", pageinationDTO);
         } else if ("replies".contains(action)) {//当前操作为 最新回复
-            Long unreadCount=notificationService.unreadCount(user.getId());
+
             PageinationDTO pageinationDTO = notificationService.list(user.getId(), page, size);
             model.addAttribute("section", "replies");
             model.addAttribute("pageination", pageinationDTO);
             model.addAttribute("sectionName", "最新回复");
-            model.addAttribute("unreadCount", unreadCount);
         }
         return "profile";
     }
