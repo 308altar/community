@@ -11,8 +11,8 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
-public class PageinationDTO {//index页面所承载的元素
-    private List<QuestionDTO> questions;
+public class PageinationDTO<T> {//index页面所承载的元素
+    private List<T> data;
     private boolean showPrevious; //是否显示上一页 '<'
     private boolean showFirstPage; //是否显示第一页 '<<'
     private boolean showNext; //是否显示下一页 '>'

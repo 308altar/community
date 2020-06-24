@@ -75,7 +75,7 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
 
-        pageinationDTO.setQuestions(questionDTOList);
+        pageinationDTO.setData(questionDTOList);
         pageinationDTO.setPageination(totalPage, page);
 
         return pageinationDTO;
@@ -127,7 +127,7 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
 
-        pageinationDTO.setQuestions(questionDTOList);
+        pageinationDTO.setData(questionDTOList);
         pageinationDTO.setPageination(totalPage, page);
 
         return pageinationDTO;
