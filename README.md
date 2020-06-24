@@ -1,6 +1,6 @@
 ## 项目更新日志
 * 2020-6-24
-> 编写消息未读通知功能。实现最新回复显示；完成主页搜索功能。
+> 编写消息未读通知功能,实现最新回复,显示完成主页搜索功能,完成副文本编辑。
 ***
 * 2020-6-23
 > 完成二级评论功能，显示二级评论数。
@@ -88,3 +88,5 @@
 [JSON 格式转化器](http://jsoneditoronline.org/)
 
 [JQuery.POST](https://api.jquery.com/jQuery.post/)
+
+[文本编辑器 Editor.md](https://pandao.github.io/editor.md/)
