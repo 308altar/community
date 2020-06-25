@@ -27,18 +27,24 @@ public class QuestionController {  //管理查看问题页面
     @Autowired
     private CommentService commentService;
 
-    //问题在数据库中的编号id
+    /**
+     * 显示问题详情页面
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Long id, Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
-        List<QuestionDTO> relatedQuestions =questionService.selectRelated(questionDTO);
-        List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
+        List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);//相关问题列表
+        List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);//获得回复该问题的评论
 
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question", questionDTO);
         model.addAttribute("comments", comments);
-        model.addAttribute("relatedQuestions",relatedQuestions);
+        model.addAttribute("relatedQuestions", relatedQuestions);
         return "question";
     }
 }

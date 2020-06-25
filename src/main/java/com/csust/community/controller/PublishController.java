@@ -2,7 +2,6 @@ package com.csust.community.controller;
 
 import com.csust.community.cache.TagCache;
 import com.csust.community.dto.QuestionDTO;
-import com.csust.community.mapper.QuestionMapper;
 import com.csust.community.model.Question;
 import com.csust.community.model.User;
 import com.csust.community.service.QuestionService;
@@ -28,6 +27,13 @@ public class PublishController {//管理问题发布页面
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * 发布修改问题
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable(name = "id") Long id,
                        Model model) {
@@ -37,7 +43,7 @@ public class PublishController {//管理问题发布页面
         model.addAttribute("description", questionDTO.getDescription());
         model.addAttribute("tag", questionDTO.getTag());
         model.addAttribute("id", questionDTO.getId()); //标识是已经存在的问题
-        model.addAttribute("tags", TagCache.get());
+        model.addAttribute("tags", TagCache.get());//返回标签列表
         return "publish";
     }
 
@@ -53,7 +59,7 @@ public class PublishController {//管理问题发布页面
     }
 
     /**
-     * Post请求提交表单
+     * Post请求提交表单,发布新问题
      *
      * @return
      */

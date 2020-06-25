@@ -26,6 +26,15 @@ public class ProfileController { //管理我的问题管理页面
     @Autowired
     private NotificationService notificationService;
 
+    /**
+     * 登录后管理我的问题与最新回复页面
+     * @param action
+     * @param request
+     * @param page
+     * @param size
+     * @param model
+     * @return
+     */
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
                           HttpServletRequest request,

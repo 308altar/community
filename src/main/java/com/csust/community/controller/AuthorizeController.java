@@ -2,7 +2,6 @@ package com.csust.community.controller;
 
 import com.csust.community.dto.AccessTokenDTO;
 import com.csust.community.dto.GithubUser;
-import com.csust.community.mapper.UserMapper;
 import com.csust.community.model.User;
 import com.csust.community.provider.GithubProvider;
 import com.csust.community.service.UserService;
@@ -39,6 +38,13 @@ public class AuthorizeController {  //授权用户的登录
     @Value("${github.redirect.uri}")
     private String redirectUri;
 
+    /**
+     * github回调地址，返回用户参数，写入数据库
+     * @param code
+     * @param state
+     * @param response
+     * @return
+     */
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
@@ -67,6 +73,12 @@ public class AuthorizeController {  //授权用户的登录
         return "redirect:/";
     }
 
+    /**
+     * 退出该用户，删除session,cookie信息
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/logout")
     public String logOut(HttpServletRequest request,
                          HttpServletResponse response) {  //退出登录，应该删除session cookie

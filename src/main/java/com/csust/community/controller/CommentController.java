@@ -26,6 +26,13 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    /**
+     * 问题页面的评论,ajax的post提交
+     *
+     * @param commentCreateDTO
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
@@ -37,7 +44,6 @@ public class CommentController {
         if (commentCreateDTO == null || StringUtils.isBlank(commentCreateDTO.getContent())) {
             return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_IS_EMPTY);
         }
-
         Comment comment = new Comment();
         comment.setParentId(commentCreateDTO.getParentId());
         comment.setType(commentCreateDTO.getType());
@@ -46,13 +52,18 @@ public class CommentController {
         comment.setGmtModified(System.currentTimeMillis());
         comment.setCommentator(user.getId());
         comment.setLikeCount(0L);
-        commentService.insert(comment,user);
+        commentService.insert(comment, user);
         return ResultDTO.okOf();
     }
 
+    /**
+     * 获得二级评论
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
-    public ResultDTO<List> comments(@PathVariable(name = "id") Long id){
+    public ResultDTO<List> comments(@PathVariable(name = "id") Long id) {
         List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
         return ResultDTO.okOf(commentDTOS);
     }

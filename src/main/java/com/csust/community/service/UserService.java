@@ -37,7 +37,7 @@ public class UserService {
             updateUser.setBio(user.getBio());
             UserExample example = new UserExample();
             example.createCriteria().andAccountIdEqualTo(dbuser.getAccountId());
-            userMapper.updateByExampleSelective(updateUser, example);
+            userMapper.updateByExampleSelective(updateUser, example);//选择部分字段更改
         }
     }
 }

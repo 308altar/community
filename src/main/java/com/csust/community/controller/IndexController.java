@@ -24,6 +24,16 @@ public class IndexController { //首页控制
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * 显示首页或根据搜索关键字所显示的问题列表
+     * @param model
+     * @param page
+     * @param size
+     * @param search
+     * @param tag
+     * @param sort
+     * @return
+     */
     @GetMapping("/")
     public String mainPage(Model model,
                            @RequestParam(name = "page", defaultValue = "1") Integer page,
