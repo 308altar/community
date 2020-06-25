@@ -2,6 +2,8 @@ package com.csust.community.service;
 
 import com.csust.community.dto.PageinationDTO;
 import com.csust.community.dto.QuestionDTO;
+import com.csust.community.dto.QuestionQueryDTO;
+import com.csust.community.enums.SortEnum;
 import com.csust.community.exception.CustomizeErrorCode;
 import com.csust.community.exception.CustomizeException;
 import com.csust.community.mapper.QuestionExtMapper;
@@ -44,29 +46,60 @@ public class QuestionService {
      * @param size 一个页面的问题数
      * @return 返回当前页码数应显示的问题列表和分页的状态设置
      */
-    public PageinationDTO list(Integer page, Integer size) {
+    public PageinationDTO list(String search, String tag, String sort, Integer page, Integer size) {
+
+        if (StringUtils.isNotBlank(search)) { //如果搜索内容不为空
+            String[] tags = StringUtils.split(search, " "); //按空格分隔
+            //替换为正则表达式
+            search = Arrays
+                    .stream(tags)
+                    .filter(StringUtils::isNotBlank)
+                    .map(t -> t.replace("+", "").replace("*", "").replace("?", ""))
+                    .filter(StringUtils::isNotBlank)
+                    .collect(Collectors.joining("|"));
+        }
+
+        PageinationDTO pageinationDTO = new PageinationDTO(); //存放当前页码的问题列表和分页的状态
 
         Integer totalPage;
-        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample()); //数据库中问题总数
+
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        if (StringUtils.isNotBlank(tag)) {
+            tag = tag.replace("+", "").replace("*", "").replace("?", "");
+            questionQueryDTO.setTag(tag);
+        }
+        for (SortEnum sortEnum : SortEnum.values()) {
+            if (sortEnum.name().toLowerCase().equals(sort)) {
+                questionQueryDTO.setSort(sort);
+
+                if (sortEnum == SortEnum.HOT7) {
+                    questionQueryDTO.setTime(System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 7);
+                }
+                if (sortEnum == SortEnum.HOT30) {
+                    questionQueryDTO.setTime(System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 30);
+                }
+                break;
+            }
+        }
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
             totalPage = totalCount / size + 1;
         }
-        if (page < 1) { //判断page是否合法
+        if (page < 1) {
             page = 1;
         }
         if (page > totalPage) {
             page = totalPage;
         }
-        Integer offset = size * (page - 1);
-        //返回数据库中的limit offset,size规格的问题
-        QuestionExample questionExample = new QuestionExample();
-        questionExample.setOrderByClause("gmt_create desc");//问题按创建时间倒序排序
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
+        pageinationDTO.setPageination(totalPage, page);
+        Integer offset = page < 1 ? 0 : size * (page - 1);
+        questionQueryDTO.setSize(size);
+        questionQueryDTO.setPage(offset);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-
-        PageinationDTO pageinationDTO = new PageinationDTO();  //存放当前页码的问题列表和分页的状态
         for (Question question : questions) {  //循环找出该问题列表所对应的user
             User user = userMapper.selectByPrimaryKey(question.getCreator());//通过问题存放的creator关联user的id查询
             QuestionDTO questionDTO = new QuestionDTO();  //存放具有user属性的Question
@@ -76,7 +109,6 @@ public class QuestionService {
         }
 
         pageinationDTO.setData(questionDTOList);
-        pageinationDTO.setPageination(totalPage, page);
 
         return pageinationDTO;
     }
@@ -188,7 +220,7 @@ public class QuestionService {
         questionExtMapper.incView(question);
     }
 
-    public List<QuestionDTO> selectRelated(QuestionDTO queryDTO) {
+    public List<QuestionDTO> selectRelated(QuestionDTO queryDTO) {//规范转化标签
         if (StringUtils.isBlank(queryDTO.getTag())) {
             return new ArrayList<>();
         }
