@@ -46,7 +46,7 @@ public class QuestionService {
      * @param size 一个页面的问题数
      * @return 返回当前页码数应显示的问题列表和分页的状态设置
      */
-    public PageinationDTO list(String search, String tag, String sort, Integer page, Integer size) {
+    public PageinationDTO list(String search, String tag,Integer page, Integer size) {
 
         if (StringUtils.isNotBlank(search)) { //如果搜索内容不为空
             String[] tags = StringUtils.split(search, " "); //按空格分隔
@@ -69,7 +69,7 @@ public class QuestionService {
             tag = tag.replace("+", "").replace("*", "").replace("?", "");
             questionQueryDTO.setTag(tag);
         }
-        for (SortEnum sortEnum : SortEnum.values()) {
+        /*for (SortEnum sortEnum : SortEnum.values()) {
             if (sortEnum.name().toLowerCase().equals(sort)) {
                 questionQueryDTO.setSort(sort);
 
@@ -81,7 +81,7 @@ public class QuestionService {
                 }
                 break;
             }
-        }
+        }*/
         Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -98,7 +98,7 @@ public class QuestionService {
         Integer offset = page < 1 ? 0 : size * (page - 1);
         questionQueryDTO.setSize(size);
         questionQueryDTO.setPage(offset);
-        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);//搜索关键词在数据库
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions) {  //循环找出该问题列表所对应的user
             User user = userMapper.selectByPrimaryKey(question.getCreator());//通过问题存放的creator关联user的id查询

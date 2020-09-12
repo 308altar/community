@@ -56,7 +56,7 @@ function collapseComments(e) {
     var comments = $("#comment-" + id);
 
     // 获取一下二级评论的展开状态
-    var collapse = e.getAttribute("data-collapse");
+    var collapse = e.getAttribute("data-collapse");//存在则是已经展开 in，不存在则是折叠状态
     if (collapse) {
         // 折叠二级评论
         comments.removeClass("in");

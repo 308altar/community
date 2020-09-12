@@ -39,15 +39,13 @@ public class IndexController { //首页控制
                            @RequestParam(name = "page", defaultValue = "1") Integer page,
                            @RequestParam(name = "size", defaultValue = "5") Integer size,
                            @RequestParam(name = "search", required = false) String search,
-                           @RequestParam(name = "tag", required = false) String tag,
-                           @RequestParam(name = "sort", required = false) String sort) {
-        PageinationDTO pageination = questionService.list(search, tag, sort, page, size);//查询带有用户信息的问题列表返回前端展示
+                           @RequestParam(name = "tag", required = false) String tag) {
+        PageinationDTO pageination = questionService.list(search, tag, page, size);//查询带有用户信息的问题列表返回前端展示
         List<String> tags = hotTagCache.getHots();
         model.addAttribute("pageination", pageination);
         model.addAttribute("search", search);
         model.addAttribute("tag", tag);
         model.addAttribute("tags", tags);
-        model.addAttribute("sort", sort);
         return "index";
     }
 }
